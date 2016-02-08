@@ -16,7 +16,7 @@
       gutter: 0, // Spacing from edge
       belowOrigin: false,
       alignment: 'left',
-      stopEventPropagation: true
+      stopPropagation: true
     };
 
     this.each(function(){
@@ -42,8 +42,8 @@
         options.belowOrigin = origin.data('beloworigin');
       if (origin.data('alignment') !== undefined)
           options.alignment = origin.data('alignment');
-      if (origin.data('eventPropagation') !== undefined)
-          options.stopEventPropagation = origin.data('eventPropagation');
+      if (origin.data('stopPropagation') !== undefined)
+          options.stopPropagation = origin.data('stopPropagation');
     }
 
     updateOptions();
@@ -202,7 +202,7 @@
                !origin.hasClass('active') &&
                ($(e.target).closest('.dropdown-content').length === 0)) {
               e.preventDefault(); // Prevents button click from moving window
-              if (options.stopEventPropagation)
+              if (options.stopPropagation)
                   e.stopPropagation();
             placeDropdown('click');
           }

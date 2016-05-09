@@ -9,6 +9,11 @@
   $.fn.extend({
     openModal: function(options) {
 
+      var $body = $('body');
+      var oldWidth = $body.innerWidth();
+      $body.css('overflow', 'hidden');
+      $body.width(oldWidth);
+
       var defaults = {
         opacity: 0.5,
         in_duration: 350,
@@ -16,16 +21,23 @@
         ready: undefined,
         complete: undefined,
         dismissible: true,
-        starting_top: '4%'
+        starting_top: '4%',
+        ending_top: '10%'
       },
-      overlayID = _generateID(),
-      $modal = $(this),
-      $overlay = $('<div class="lean-overlay"></div>'),
+      $modal = $(this);
+
+      if ($modal.hasClass('open')) {
+        return;
+      }
+
+      overlayID = _generateID();
+      $overlay = $('<div class="lean-overlay"></div>');
       lStack = (++_stack);
 
       // Store a reference of the overlay
       $overlay.attr('id', overlayID).css('z-index', 1000 + lStack * 2);
       $modal.data('overlay-id', overlayID).css('z-index', 1000 + lStack * 2 + 1);
+      $modal.addClass('open');
 
       $("body").append($overlay);
 
@@ -75,7 +87,7 @@
       else {
         $.Velocity.hook($modal, "scaleX", 0.7);
         $modal.css({ top: options.starting_top });
-        $modal.velocity({top: "10%", opacity: 1, scaleX: '1'}, {
+        $modal.velocity({top: options.ending_top, opacity: 1, scaleX: '1'}, {
           duration: options.in_duration,
           queue: false,
           ease: "easeOutCubic",
@@ -102,9 +114,15 @@
       $modal = $(this),
       overlayID = $modal.data('overlay-id'),
       $overlay = $('#' + overlayID);
+      $modal.removeClass('open');
 
       options = $.extend(defaults, options);
 
+      // Enable scrolling
+      $('body').css({
+        overflow: '',
+        width: ''
+      });
       //If user scrolled to the bottom of content then reset scroll position on exit if option allows.
       if (options.resetContentScrollPosition) $modal.find(".modal-content").scrollTop(0, 0);
 

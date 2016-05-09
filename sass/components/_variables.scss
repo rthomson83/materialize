@@ -107,6 +107,9 @@ $collapsible-border-color: #ddd !default;
    ========================================================================== */
 
 $chip-bg-color: #e4e4e4 !default;
+$chip-border-color: #9e9e9e !default;
+$chip-selected-color: #26a69a !default;
+$chip-margin: 5px !default;
 
 /*** Date Time Picker ***/
 $dtp-header: darken($secondary_color, 15%) !default;
@@ -135,8 +138,7 @@ $dropdown-item-height: 50px !default;
 /* 9. Fonts
    ========================================================================== */
 
-$roboto-font-path: "../font/roboto/" !default;
-$icons-font-path: "../font/material-design-icons/" !default;
+$roboto-font-path: "../fonts/roboto/" !default;
 
 
 /* 10. Forms
